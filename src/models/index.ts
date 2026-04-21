@@ -1,62 +1,47 @@
-import { Paciente } from "./Paciente";
-import { Cita } from "./Cita";
-import { Pago } from "./Pago";
-import { PlanTratamiento } from "./PlanTratamiento";
-import { Procedimiento } from "./Procedimiento";
+import { Patient } from "./patient";
+import { Appointment } from "./appointment";
+import { Payment } from "./payment";
+import { TreatmentPlan } from "./treatmentPlan";
+import { Procedure } from "./procedure";
 
-/* =========================
-   🔴 RELACIONES PRINCIPALES
-   ========================= */
 
-// 🧍 Paciente → Cita (1:N)
-Paciente.hasMany(Cita, {
-  foreignKey: "paciente_id",
-  as: "citas",
+// 🧍 Patient → Appointment (1:N)
+Patient.hasMany(Appointment, {
+  foreignKey: "patient_id",
+  as: "appointments",
 });
 
-Cita.belongsTo(Paciente, {
-  foreignKey: "paciente_id",
-  as: "paciente",
+Appointment.belongsTo(Patient, {
+  foreignKey: "patient_id",
+  as: "patient",
 });
 
-// 🧾 Cita → Pago (1:N)
-Cita.hasMany(Pago, {
-  foreignKey: "cita_id",
-  as: "pagos",
+// 🧾 Appointment → Payment (1:N)
+Appointment.hasMany(Payment, {
+  foreignKey: "appointment_id",
+  as: "payments",
 });
 
-Pago.belongsTo(Cita, {
-  foreignKey: "cita_id",
-  as: "cita",
+Payment.belongsTo(Appointment, {
+  foreignKey: "appointment_id",
+  as: "appointment",
 });
 
-// 🧍 Paciente → PlanTratamiento (1:N)
-Paciente.hasMany(PlanTratamiento, {
-  foreignKey: "paciente_id",
-  as: "planes",
+// 🧍 Patient → TreatmentPlan (1:N)
+Patient.hasMany(TreatmentPlan, {
+  foreignKey: "patient_id",
+  as: "treatmentPlans",
 });
 
-PlanTratamiento.belongsTo(Paciente, {
-  foreignKey: "paciente_id",
-  as: "paciente",
+TreatmentPlan.belongsTo(Patient, {
+  foreignKey: "patient_id",
+  as: "patient",
 });
-
-/* =========================
-   🟡 NOTA IMPORTANTE
-   ========================= */
-
-// Procedimiento aún NO tiene relación directa
-// Se conecta mediante DetalleTratamiento (tabla intermedia)
-// (si no la tienes, está bien dejarlo así por ahora)
-
-/* =========================
-   📦 EXPORTS
-   ========================= */
 
 export {
-  Paciente,
-  Cita,
-  Pago,
-  PlanTratamiento,
-  Procedimiento,
+  Patient,
+  Appointment,
+  Payment,
+  TreatmentPlan,
+  Procedure,
 };

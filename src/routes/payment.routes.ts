@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { PagoController } from "../controllers/PagoController";
+import { PaymentController } from "../controllers/Payment.controller";
 
 const router = Router();
-const controller = new PagoController();
+const controller = new PaymentController();
 
 router.get("/", controller.getAll.bind(controller));
 router.post("/", controller.create.bind(controller));

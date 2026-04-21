@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:4000
+
+### Get all treatment plans
+GET {{baseUrl}}/api/treatment-plans
+
+### Create treatment plan
+POST {{baseUrl}}/api/treatment-plans
+Content-Type: application/json
+
+{
+  "patient_id": 1,
+  "name": "Complete Orthodontics",
+  "status": "ACTIVE"
+}

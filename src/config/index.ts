@@ -1,53 +1,10 @@
-import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
 import dotenv from "dotenv";
 import express, { Application } from "express";
 import morgan from "morgan";
-import { sequelize, testConnection, getDatabaseInfo } from "../database/db";
-var cors = require("cors");
+import cors from "cors";
 
-dotenv.config();
-
-const DB_ENGINE = process.env.DB_ENGINE;
-
-let sequelize: Sequelize;
-
-if (DB_ENGINE === "mysql") {
-  sequelize = new Sequelize(
-    process.env.MYSQL_NAME!,
-    process.env.MYSQL_USER!,
-    process.env.MYSQL_PASSWORD!,
-    {
-      host: process.env.MYSQL_HOST,
-      dialect: "mysql",
-      port: Number(process.env.MYSQL_PORT),
-    }
-  );
-} else if (DB_ENGINE === "postgres") {
-  sequelize = new Sequelize(
-    process.env.POSTGRES_NAME!,
-    process.env.POSTGRES_USER!,
-    process.env.POSTGRES_PASSWORD!,
-    {
-      host: process.env.POSTGRES_HOST,
-      dialect: "postgres",
-      port: Number(process.env.POSTGRES_PORT),
-    }
-  );
-} else if (DB_ENGINE === "mssql") {
-  sequelize = new Sequelize(
-    process.env.MSSQL_NAME!,
-    process.env.MSSQL_USER!,
-    process.env.MSSQL_PASSWORD!,
-    {
-      host: process.env.MSSQL_HOST,
-      dialect: "mssql",
-      port: Number(process.env.MSSQL_PORT),
-    }
-  );
-} else {
-  throw new Error("Motor de base de datos no soportado");
-}
+import routes from "../routes";
+import { sequelize, testConnection, getDatabaseInfo } from "../database/db"; // 👈 AQUÍ
 
 dotenv.config();
 
@@ -63,48 +20,43 @@ export class App {
   }
 
   private settings(): void {
-    this.app.set('port', this.port || process.env.PORT || 4000);
+    this.app.set("port", this.port || process.env.PORT || 4000);
   }
 
   private middlewares(): void {
-    this.app.use(morgan('dev'));
+    this.app.use(morgan("dev"));
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
   }
 
   private routes(): void {
-    // Las rutas se configurarán más adelante
+    this.app.use("/api", routes);
   }
 
   private async dbConnection(): Promise<void> {
     try {
-      // Mostrar información de la base de datos seleccionada
       const dbInfo = getDatabaseInfo();
-      console.log(`🔗 Intentando conectar a: ${dbInfo.engine.toUpperCase()}`);
 
-      // Probar la conexión
+      console.log(`🔗 Connecting to: ${dbInfo.engine.toUpperCase()}`);
+
       const isConnected = await testConnection();
 
       if (!isConnected) {
-        throw new Error(`No se pudo conectar a la base de datos ${dbInfo.engine.toUpperCase()}`);
+        throw new Error("Database connection failed");
       }
 
-      // Sincronizar la base de datos
       await sequelize.sync({ force: false });
-      console.log(`📦 Base de datos sincronizada exitosamente`);
 
+      console.log("📦 Database synchronized");
     } catch (error) {
-      console.error("❌ Error al conectar con la base de datos:", error);
-      process.exit(1); // Terminar la aplicación si no se puede conectar
+      console.error("❌ Database connection error:", error);
+      process.exit(1);
     }
   }
 
   async listen() {
-    await this.app.listen(this.app.get('port'));
-    console.log(`🚀 Servidor ejecutándose en puerto ${this.app.get('port')}`);
+    await this.app.listen(this.app.get("port"));
+    console.log(`🚀 Server running on port ${this.app.get("port")}`);
   }
 }
-
-
-export default sequelize;

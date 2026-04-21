@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:4000
+
+### Get all payments
+GET {{baseUrl}}/api/payments
+
+### Create payment
+POST {{baseUrl}}/api/payments
+Content-Type: application/json
+
+{
+  "appointment_id": 1,
+  "method": "CASH",
+  "amount": 150000,
+  "status": "PAID"
+}
+
+### Update payment
+PUT {{baseUrl}}/api/payments/1
+Content-Type: application/json
+
+{
+  "method": "TRANSFER",
+  "status": "PAID"
+}
+
+### Delete payment
+DELETE {{baseUrl}}/api/payments/1

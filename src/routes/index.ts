@@ -1,17 +1,17 @@
 import { Router } from "express";
 
-import pacienteRoutes from "./paciente.routes";
-import citaRoutes from "./cita.routes";
-import pagoRoutes from "./pago.routes";
-import planRoutes from "./planTratamiento.routes";
-import procedimientoRoutes from "./procedimiento.routes";
+import patientRoutes from "./patient.routes";
+import appointmentRoutes from "./appointment.routes";
+import paymentRoutes from "./payment.routes";
+import treatmentPlanRoutes from "./treatmentPlan.routes";
+import procedureRoutes from "./procedure.routes";
 
 const router = Router();
 
-router.use("/pacientes", pacienteRoutes);
-router.use("/citas", citaRoutes);
-router.use("/pagos", pagoRoutes);
-router.use("/planes", planRoutes);
-router.use("/procedimientos", procedimientoRoutes);
+router.use("/patients", patientRoutes);
+router.use("/appointments", appointmentRoutes);
+router.use("/payments", paymentRoutes);
+router.use("/treatment-plans", treatmentPlanRoutes);
+router.use("/procedures", procedureRoutes);
 
 export default router;

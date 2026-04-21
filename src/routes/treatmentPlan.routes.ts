@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { PlanTratamientoController } from "../controllers/PlanTratamientoController";
+import { TreatmentPlanController } from "../controllers/TreatmentPlan.controller";
 
 const router = Router();
-const controller = new PlanTratamientoController();
+const controller = new TreatmentPlanController();
 
 router.get("/", controller.getAll.bind(controller));
 router.post("/", controller.create.bind(controller));

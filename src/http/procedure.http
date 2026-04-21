@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:4000
+
+### Get all procedures
+GET {{baseUrl}}/api/procedures
+
+### Create procedure
+POST {{baseUrl}}/api/procedures
+Content-Type: application/json
+
+{
+  "name": "Dental Cleaning",
+  "base_price": 80000,
+  "status": "ACTIVE"
+}

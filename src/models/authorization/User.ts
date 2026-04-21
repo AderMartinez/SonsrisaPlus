@@ -2,6 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../../database/db";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { RoleUser } from "./RoleUser";
 
 export class User extends Model {
   id!: number;
@@ -27,8 +28,7 @@ export class User extends Model {
     const token = jwt.sign({ id: this.id }, process.env.JWT_SECRET || 'secret', {
       expiresIn,
     });
-    const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 1 minutos
-    // const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 horas
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000); 
     return { token, expiresAt };
   }
 }
@@ -87,3 +87,12 @@ User.init(
     }
   }
 );
+
+User.hasMany(RoleUser, {
+  foreignKey: 'user_id',
+  sourceKey: "id",
+});
+RoleUser.belongsTo(User, {
+  foreignKey: 'user_id',
+  targetKey: "id",
+});

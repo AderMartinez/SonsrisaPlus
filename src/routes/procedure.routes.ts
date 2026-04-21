@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { ProcedimientoController } from "../controllers/ProcedimientoController";
+import { ProcedureController } from "../controllers/Procedure.controller";
 
 const router = Router();
-const controller = new ProcedimientoController();
+const controller = new ProcedureController();
 
 router.get("/", controller.getAll.bind(controller));
 router.post("/", controller.create.bind(controller));

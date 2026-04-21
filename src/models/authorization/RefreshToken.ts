@@ -2,6 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import {sequelize} from "../../database/db";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { User } from "./User";
 
 export class RefreshToken extends Model {
   id!: number;
@@ -70,3 +71,12 @@ RefreshToken.init(
     }
   }
 );
+
+User.hasMany(RefreshToken, {
+  foreignKey: 'user_id',
+  sourceKey: "id",
+});
+RefreshToken.belongsTo(User, {
+  foreignKey: 'user_id',
+  targetKey: "id",
+});

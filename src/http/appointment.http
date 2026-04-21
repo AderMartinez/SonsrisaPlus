@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:3000
+
+### Get all appointments
+GET {{baseUrl}}/api/appointments
+
+### Get appointment by ID
+GET {{baseUrl}}/api/appointments/1
+
+### Create appointment
+POST {{baseUrl}}/api/appointments
+Content-Type: application/json
+
+{
+  "patient_id": 1,
+  "dentist_id": 1,
+  "chair_id": 1,
+  "date": "2026-05-01T10:00:00",
+  "status": "PENDING",
+  "subtotal": 100000
+}
+
+### Update appointment
+PUT {{baseUrl}}/api/appointments/1
+Content-Type: application/json
+
+{
+  "status": "CONFIRMED",
+  "subtotal": 150000
+}
+
+### Delete appointment
+DELETE {{baseUrl}}/api/appointments/1
