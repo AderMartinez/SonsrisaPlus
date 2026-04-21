@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000
+
+### Obtener pagos
+GET {{baseUrl}}/api/pagos
+
+### Crear pago
+POST {{baseUrl}}/api/pagos
+Content-Type: application/json
+
+{
+  "cita_id": 1,
+  "metodo": "EFECTIVO",
+  "monto": 150000,
+  "estado": "PAGADO"
+}
+
+### Actualizar pago
+PUT {{baseUrl}}/api/pagos/1
+Content-Type: application/json
+
+{
+  "metodo": "TRANSFERENCIA",
+  "estado": "PAGADO"
+}
+
+### Eliminar pago
+DELETE {{baseUrl}}/api/pagos/1
