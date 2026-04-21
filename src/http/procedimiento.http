@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:3000
+
+### Obtener procedimientos
+GET {{baseUrl}}/api/procedimientos
+
+### Crear procedimiento
+POST {{baseUrl}}/api/procedimientos
+Content-Type: application/json
+
+{
+  "nombre": "Limpieza Dental",
+  "precio_base": 80000,
+  "estado": "ACTIVO"
+}
