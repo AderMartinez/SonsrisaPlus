@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:3000
+
+### Obtener planes
+GET {{baseUrl}}/api/planes
+
+### Crear plan
+POST {{baseUrl}}/api/planes
+Content-Type: application/json
+
+{
+  "paciente_id": 1,
+  "nombre": "Ortodoncia Completa",
+  "estado": "ACTIVO"
+}
