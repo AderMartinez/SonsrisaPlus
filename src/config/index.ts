@@ -105,4 +105,6 @@ export class App {
     console.log(`🚀 Servidor ejecutándose en puerto ${this.app.get('port')}`);
   }
 }
+
+
 export default sequelize;
